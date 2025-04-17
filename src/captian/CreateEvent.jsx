@@ -16,7 +16,7 @@ const CreateEvent = ({ height, width }) => {
   const[eventDetails,setEventDetails]=useState([])
   useEffect(()=>{
     fetchEvent()
-  },[])
+  },[handleAddEvent])
   const [show, setShow] = useState(false);
 
   const handleShow = () => setShow(true)
