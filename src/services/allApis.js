@@ -10,8 +10,8 @@ export const addEventApi=async(reqBody,reqHeader)=>{
     return await commonApi('POST',`${severurl}/add-event`,reqBody,reqHeader)
 }
 // getEvent
-export const getEventApi=async()=>{
-    return await commonApi('GET',`${severurl}/get-event`,{})
+export const getEventApi=async(reqHeader)=>{
+    return await commonApi('GET',`${severurl}/get-event`,{},reqHeader)
 }
 // getEvent
 export const updateStatusapi=async(id,status)=>{

@@ -16,7 +16,7 @@ const CreateEvent = ({ height, width }) => {
   const[eventDetails,setEventDetails]=useState([])
   useEffect(()=>{
     fetchEvent()
-  },[handleAddEvent])
+  },[])
   const [show, setShow] = useState(false);
 
   const handleShow = () => setShow(true)
@@ -48,22 +48,20 @@ const CreateEvent = ({ height, width }) => {
 
   // getevents
   
-    const fetchEvent = async()=>{
-      try {
-          const result = await getEventApi()
-          if(result.status == 200){
-            setEventDetails(result.data)
-            setFetchEventResponse(result.data)
-            console.log(result.data);
-            console.log(eventDetails);
-            
-            
-          }
-      } catch (e) {
-        console.log(e);
-        
+  const fetchEvent = async () => {
+    const token = JSON.parse(sessionStorage.getItem("token"));
+    const reqHeader = { "Authorization": `Bearer ${token}` };
+    try {
+      const result = await getEventApi(reqHeader);
+      if (result.status === 200) {
+        setEventDetails(result.data);
+        setFetchEventResponse(result.data);
+        console.log(result.data);
       }
+    } catch (e) {
+      console.log("Fetch event failed:", e);
     }
+  }
   
 
   return (
