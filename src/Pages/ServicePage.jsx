@@ -48,7 +48,7 @@ const ServicePage = ({ height, width }) => {
           <div key={item._id} className='list d-flex justify-content-between align-items-center mb-2 ' style={{ height: `${height * 0.08}px`, width: `${width - 40}px`, border: "1px solid", borderRadius: "10px", fontSize: "15px",padding:"0px 20px" }} onClick={handleShow}>
         <span>{i+1}</span>
         <span>{moment(item.entry).format('D-MM-YYYY')}</span>
-        <span>{item.mongoEventId.name}</span>
+        <span>{item.mongoEventId?.name}</span>
       </div>
         )):
         <div>No services Yet</div>
