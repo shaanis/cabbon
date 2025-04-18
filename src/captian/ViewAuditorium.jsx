@@ -15,7 +15,6 @@ const ViewAuditorium = ({height,width}) => {
         const result = await getEventApi()
         if(result.status == 200){
           setEventDetails(result.data)
-          setFetchEventResponse(result.data)
          
         //  const evsts = result.data?.filter(item=>item.length-1).map(item=>console.log(item.status)
         //  ) 
@@ -46,7 +45,7 @@ const ViewAuditorium = ({height,width}) => {
             }}>
               <div className="d-flex gap-3 justify-content-between p-3 fs-5">
                 <p>Today</p>
-                <p className='text-success'>08:30 am</p>
+                <p className='text-danger'>08:30 am</p>
               </div>
               <p style={{fontWeight:'500'}} className='ps-3 fs-5'>{item?.name}</p>
             </Link>

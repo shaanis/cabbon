@@ -3,13 +3,13 @@ import { Modal, Button, Card, Spinner } from "react-bootstrap";
 import { PlusCircle } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { addEventApi,getEventApi } from "../services/allApis";
-import { eventResponseContext } from "../contextApi/ContextApi";
+// import { eventResponseContext } from "../contextApi/ContextApi";
 
 
 
 const CreateEvent = ({ height, width }) => {
   const[isLoading,setIsLoading]=useState(false)
-    const{fetchEventResponse,setFetchEventResponse} = useContext(eventResponseContext)
+    // const{fetchEventResponse,setFetchEventResponse} = useContext(eventResponseContext)
   const[eventData,setEventData]=useState({
     name:"",time:"",finetime:"",place:""
   })
@@ -22,28 +22,35 @@ const CreateEvent = ({ height, width }) => {
   const handleShow = () => setShow(true)
   const handleClose = () => setShow(false)
   const navigate = useNavigate()
-  const handleAddEvent=async()=>{
+  // create event
+  const handleAddEvent=async(e)=>{
+    e.preventDefault()
     const boyData = JSON.parse(sessionStorage.getItem('user'))
-    const token = JSON.parse(sessionStorage.getItem("token"))
-    const reqHeader={ "Authorization":`Bearer ${token}`}
-    if(eventData.name && eventData.time && eventData.finetime&&eventData.place){
-      try{
-        setIsLoading(true)
-         const result = await addEventApi({...eventData,userId:boyData._id},reqHeader)
-         if(result.status>=200 && result.status<299){
-          alert("added")
-          localStorage.setItem("event",JSON.stringify(result.data.event))
-          localStorage.setItem("eventToken",JSON.stringify(result.data.token))
-          // navigate('/captain/view-auditorium')
-          handleClose()
-          fetchEvent()
-         }
-      }catch(e){
-      console.log(e);
-      }finally{
-        setIsLoading(false)
+    const UserToken = JSON.parse(sessionStorage.getItem("token"))
+    console.log(UserToken);
+    
+    if(UserToken){
+      const reqHeader={ "Authorization":`Bearer ${UserToken}`}
+      if(eventData.name && eventData.time && eventData.finetime&&eventData.place){
+        try{
+          setIsLoading(true)
+           const result = await addEventApi({...eventData,userId:boyData._id},reqHeader)
+           if(result.status>=200 && result.status<299){
+            alert("added")
+            localStorage.setItem("event",JSON.stringify(result.data.event))
+            localStorage.setItem("eventToken",JSON.stringify(result.data.token))
+            // navigate('/captain/view-auditorium')
+            handleClose()
+            fetchEvent()
+           }
+        }catch(e){
+        console.log(e);
+        }finally{
+          setIsLoading(false)
+        }
       }
     }
+    
   }
 
   // getevents
@@ -55,7 +62,7 @@ const CreateEvent = ({ height, width }) => {
       const result = await getEventApi(reqHeader);
       if (result.status === 200) {
         setEventDetails(result.data);
-        setFetchEventResponse(result.data);
+        // setFetchEventResponse(result.data);
         console.log(result.data);
       }
     } catch (e) {

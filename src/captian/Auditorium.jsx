@@ -27,11 +27,12 @@ const Auditorium = ({ height, width }) => {
   const playBeep = () => {
     sound.play();
   };
+  // fetch id by id from params
   const eventByid = async(id)=>{
     try {
       const result = await eventByIdApi(id)
       if(result.status == 200){
-        console.log(result.data);
+        console.log("Auditorium",result.data);
         setEventDetails(result.data)     
       }
     } catch (e) {
