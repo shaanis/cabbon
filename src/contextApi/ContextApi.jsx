@@ -4,11 +4,11 @@ export const eventResponseContext= createContext()
 export const serviceResponseContext= createContext()
 
 const ContextApi = ({children}) => {
-  const[fetchEventResponse,setFetchEventResponse]=useState("")
+  const[addEventResponse,setAddEventResponse]=useState("")
   const[serviceResponse,setserviceResponse]=useState("")
   return (
    <serviceResponseContext.Provider value={{serviceResponse,setserviceResponse}}>
-      <eventResponseContext.Provider value={{fetchEventResponse,setFetchEventResponse}}>
+      <eventResponseContext.Provider value={{addEventResponse,setAddEventResponse}}>
         {children}
       </eventResponseContext.Provider>
    </serviceResponseContext.Provider>

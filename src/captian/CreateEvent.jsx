@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Modal, Button, Card, Spinner } from "react-bootstrap";
 import { PlusCircle } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { addEventApi,getEventApi } from "../services/allApis";
+import { addEventApi,boysEventApi,getEventApi } from "../services/allApis";
 // import { eventResponseContext } from "../contextApi/ContextApi";
 
 
@@ -14,8 +14,10 @@ const CreateEvent = ({ height, width }) => {
     name:"",time:"",finetime:"",place:""
   })
   const[eventDetails,setEventDetails]=useState([])
+  const [serviceCount, setServiceCount] = useState(0);
   useEffect(()=>{
-    fetchEvent()
+    fetchEvent(),
+    fetchservice()
   },[])
   const [show, setShow] = useState(false);
 
@@ -69,6 +71,20 @@ const CreateEvent = ({ height, width }) => {
       console.log("Fetch event failed:", e);
     }
   }
+
+  // for service count
+  const boyData = JSON.parse(sessionStorage.getItem('user'));
+
+       const fetchservice = async () => {
+        try {
+          const result = await boysEventApi({boyId:boyData._id});
+          if (result.status === 200) {
+            setServiceCount(result.data);
+          }
+        } catch (e) {
+          console.log("Error fetching events:", e);
+        }
+      };
   
 
   return (
@@ -108,7 +124,7 @@ const CreateEvent = ({ height, width }) => {
           <div className=''> <span style={{ fontSize: "18px", fontWeight: "500" }}>Service</span>
             <span style={{ color: "rgba(50, 168, 82)", fontSize: "16px", fontWeight: "500" }}></span>
           </div>
-          <div className='d-flex justify-content-start mt-2'><span style={{ fontSize: "20px", fontWeight: "500" }}>25</span></div>
+          <div className='d-flex justify-content-start mt-2'><span style={{ fontSize: "20px", fontWeight: "500" }}>{serviceCount.length || 0}</span></div>
         </div>
 
         <div  className='Payment ' style={{ height: `${height * 0.2}px`, margin: "10px", marginTop: "10px", borderRadius: "10px", border: "1px solid", padding: "10px", backgroundImage: `url(https://i.postimg.cc/gJBGjT0L/paymentbg.png)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: "right" }}>

@@ -7,6 +7,7 @@ const HomePage = ({ height, width }) => {
     const{serviceResponse}=useContext(serviceResponseContext)
     const [events, setEvents] = useState([])
       const[eventDetails,setEventDetails]=useState("")
+    
     useEffect(() => {
         currentEvent()
         fetchEvents()

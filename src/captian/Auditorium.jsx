@@ -7,6 +7,8 @@ import { eventByIdApi, scanAndExitBoysApi, scanBoysApi, scannedBoysApi, updateSt
 import { Howl } from "howler";
 import beepSound from "../assets/beep.mp3";
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import { serviceResponseContext } from "../contextApi/ContextApi";
 
 const Auditorium = ({ height, width }) => {
   const { id } = useParams();
@@ -15,6 +17,7 @@ const Auditorium = ({ height, width }) => {
   const [show, setShow] = useState(false);
   const[workers,setWorkers]=useState([])
   const [eventDetail,setEventDetails] = useState('')
+  const{serviceResponse,setserviceResponse}=useContext(serviceResponseContext)
 
   const navigate = useNavigate();
   const back = () => navigate(-1);
@@ -76,6 +79,7 @@ const Auditorium = ({ height, width }) => {
                 console.log(response.data);
                 if(response.status == 200){
                   fetchScannedBoys()
+                  setserviceResponse(response.data)
                 }
                 
         if(response.status == 401){

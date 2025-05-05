@@ -8,6 +8,7 @@ import { boysLogindApi, loginUserApi } from '../services/allApis';
 
 const Login = () => {
   const [userData, setUserData] = useState({ email: "", password: "" });
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -15,6 +16,7 @@ const Login = () => {
 
     if (userData.email && userData.password) {
       try {
+        setIsLoading(true);
         const result = await loginUserApi(userData);
         console.log("API Response:", result); // Debugging
 
@@ -38,6 +40,8 @@ const Login = () => {
         }
       } catch (error) {
         console.error("Login Error:", error);
+      }finally {
+        setIsLoading(false);
       }
     } else {
       console.log("Please enter email and password");
@@ -75,7 +79,7 @@ const Login = () => {
           </InputGroup>
 
           <Button onClick={handleLogin} className="mt-2" variant="primary" >
-            Sign In
+           { isLoading ? "Loading..." : "Login"}
           </Button>
         </div>
       </Form>
