@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { boysEventApi, currentEventApi } from '../services/allApis';
 import moment from 'moment';
 import { serviceResponseContext } from '../contextApi/ContextApi';
+import { Helmet } from 'react-helmet';
 
 const HomePage = ({ height, width }) => {
     const{serviceResponse}=useContext(serviceResponseContext)
@@ -41,6 +42,7 @@ const HomePage = ({ height, width }) => {
 
     return (
         <>
+        <Helmet>
             <div className='home d-flex flex-column ' style={{ width: `${width}px`, height: `${height}px`, paddingLeft: "10px", paddingRight: "10px" }}>
                 <div style={{ marginTop: `${height * 0.1 + 15}px`, }}>
                     {/* <img src={profile} alt="" width={"50px"} height={"0px"} /> */}
@@ -91,6 +93,7 @@ const HomePage = ({ height, width }) => {
                 </div>
 
             </div>
+            </Helmet>
         </>
 
     )
